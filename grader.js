@@ -108,12 +108,12 @@ if (require.main == module) {
     // program.url takes precedence over program.file since it has no
     // default.
     if (program.url) {
-	restler.get(program.url).on('complete', function (response) {
-	    if (response instanceof Error) {
+	restler.get(program.url).on('complete', function (result, response) {
+	    if (result instanceof Error) {
 		console.error('Invalid URL');
 		process.exit(1);
 	    }
-	    var checkJson = checkHtml(cheerio.load(response), program.checks);
+	    var checkJson = checkHtml(cheerio.load(result), program.checks);
 	    var outJson = JSON.stringify(checkJson, null, 4);
 	    console.log(outJson);
 	});
